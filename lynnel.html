@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amara Osei — Food Scientist & Product Innovator</title>
+  <meta name="description" content="Food science portfolio — exploring the science behind what we eat." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===================== TOKENS ===================== */
+    :root {
+      --cream:   #FAF8F3;
+      --beige:   #EDE8DF;
+      --sand:    #D9D1C2;
+      --green:   #1F3D10;
+      --green-mid: #2E5A19;
+      --green-light: #4A7A2C;
+      --orange:  #C9561A;
+      --orange-warm: #E07840;
+      --text:    #1A1916;
+      --muted:   #7A7567;
+      --white:   #FFFFFF;
+
+      --serif: 'Cormorant Garant', Georgia, serif;
+      --sans:  'Outfit', system-ui, sans-serif;
+
+      --r-sm: 8px;
+      --r-md: 16px;
+      --r-lg: 24px;
+      --r-xl: 40px;
+
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* ===================== RESET ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: var(--sans); border: none; background: none; }
+
+    /* ===================== GRAIN OVERLAY ===================== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* ===================== NAV ===================== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s var(--ease-out), box-shadow 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(250, 248, 243, 0.92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 var(--sand);
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: var(--green);
+    }
+    .nav-logo span { color: var(--orange); }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+      opacity: 0.7;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--orange); }
+
+    /* mobile nav toggle */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--green);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--cream);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--serif);
+      font-size: 2.4rem;
+      font-weight: 300;
+      color: var(--green);
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--orange); }
+
+    /* ===================== HERO ===================== */
+    #hero {
+      min-height: 100svh;
+      background: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative organic blobs */
+    .hero-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.25;
+      animation: blobFloat 12s ease-in-out infinite alternate;
+    }
+    .hero-blob-1 {
+      width: 420px; height: 420px;
+      background: var(--green-light);
+      top: -100px; right: -80px;
+      animation-delay: 0s;
+    }
+    .hero-blob-2 {
+      width: 300px; height: 300px;
+      background: var(--orange);
+      bottom: -60px; left: -60px;
+      animation-delay: -4s;
+      opacity: 0.15;
+    }
+    .hero-blob-3 {
+      width: 200px; height: 200px;
+      background: #A8C97F;
+      top: 40%; left: 20%;
+      animation-delay: -8s;
+      opacity: 0.12;
+    }
+
+    @keyframes blobFloat {
+      0%   { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(30px, 20px) scale(1.08); }
+    }
+
+    /* Decorative molecular dots */
+    .hero-dots {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .hero-dot {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      animation: dotPulse 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes dotPulse {
+      0%   { opacity: 0.3; transform: scale(1); }
+      100% { opacity: 0.7; transform: scale(1.1); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 740px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange-warm);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out) 0.2s forwards;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 28px; height: 1px;
+      background: var(--orange-warm);
+      opacity: 0.5;
+    }
+
+    .hero-h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.6rem, 7vw, 5.2rem);
+      font-weight: 300;
+      line-height: 1.08;
+      color: var(--cream);
+      letter-spacing: -0.01em;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease-out) 0.4s forwards;
+    }
+    .hero-h1 em {
+      font-style: italic;
+      color: var(--orange-warm);
+    }
+
+    .hero-sub {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      font-weight: 300;
+      color: rgba(250, 248, 243, 0.65);
+      max-width: 480px;
+      margin: 0 auto 44px;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease-out) 0.6s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease-out) 0.8s forwards;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: transform 0.2s var(--ease-bounce), box-shadow 0.2s;
+    }
+    .btn:active { transform: scale(0.97); }
+
+    .btn-primary {
+      background: var(--orange);
+      color: var(--white);
+      box-shadow: 0 4px 24px rgba(201, 86, 26, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(201, 86, 26, 0.45);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--cream);
+      border: 1px solid rgba(250, 248, 243, 0.3);
+    }
+    .btn-outline:hover {
+      background: rgba(250, 248, 243, 0.08);
+      border-color: rgba(250, 248, 243, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(250,248,243,0.4);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      animation: fadeIn 1s var(--ease-out) 1.4s both;
+    }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: rgba(250,248,243,0.3);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%, 100% { transform: scaleY(1); opacity: 0.3; }
+      50% { transform: scaleY(0.4); opacity: 0.8; }
+    }
+
+    /* ===================== SECTION SHARED ===================== */
+    section { padding: 96px 24px; }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 16px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 20px; height: 1px;
+      background: var(--orange);
+    }
+
+    .section-heading {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--green);
+      letter-spacing: -0.01em;
+    }
+    .section-heading em { font-style: italic; color: var(--orange); }
+
+    /* ===================== WORK ===================== */
+    #work { background: var(--cream); }
+
+    .work-header {
+      max-width: 760px;
+      margin: 0 auto 56px;
+    }
+
+    .work-intro {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-top: 16px;
+      font-weight: 300;
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    /* Filter chips */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 32px;
+    }
+    .chip {
+      padding: 7px 16px;
+      border-radius: 100px;
+      font-size: 0.76rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border: 1px solid var(--sand);
+      color: var(--muted);
+      background: transparent;
+      transition: all 0.2s var(--ease-out);
+    }
+    .chip:hover { border-color: var(--green); color: var(--green); }
+    .chip.active {
+      background: var(--green);
+      border-color: var(--green);
+      color: var(--cream);
+    }
+
+    /* Card grid */
+    .card-grid {
+      max-width: 760px;
+      margin: 48px auto 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    /* Work card */
+    .work-card {
+      background: var(--white);
+      border: 1px solid var(--beige);
+      border-radius: var(--r-md);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.25s var(--ease-out), box-shadow 0.25s, border-color 0.25s;
+      animation: fadeUp 0.5s var(--ease-out) both;
+    }
+    .work-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(31, 61, 16, 0.1);
+      border-color: var(--sand);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: var(--beige);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      flex-shrink: 0;
+    }
+
+    .card-body {
+      padding: 24px;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .tag-experiment { background: #FFF4ED; color: #9D3E0C; }
+    .tag-research   { background: #EEF4E8; color: #2A4D12; }
+    .tag-recipe     { background: #FDF8EE; color: #8B6914; }
+    .tag-nutrition  { background: #EDF4F8; color: #14506B; }
+
+    .card-title {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      border-top: 1px solid var(--beige);
+    }
+
+    .card-date {
+      font-size: 0.72rem;
+      color: var(--sand);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+
+    .card-arrow {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--beige);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .work-card:hover .card-arrow {
+      background: var(--green);
+      color: var(--cream);
+      transform: translate(2px, -2px);
+    }
+
+    /* Featured card (first card is larger) */
+    .work-card.featured .card-img { height: 280px; }
+
+    /* ===================== ABOUT ===================== */
+    #about {
+      background: var(--green);
+      color: var(--cream);
+    }
+
+    .about-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    @media (min-width: 640px) {
+      .about-inner {
+        grid-template-columns: 280px 1fr;
+      }
+    }
+
+    .about-image-wrap {
+      position: relative;
+    }
+
+    .about-avatar {
+      width: 100%;
+      aspect-ratio: 4/5;
+      border-radius: var(--r-lg);
+      background: var(--green-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .about-avatar-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      background: linear-gradient(135deg, var(--green-mid), var(--green-light));
+    }
+    .avatar-upload-hint {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-size: 0.68rem;
+      color: rgba(250,248,243,0.5);
+      letter-spacing: 0.06em;
+    }
+
+    .about-badge {
+      position: absolute;
+      bottom: -16px; right: -16px;
+      background: var(--orange);
+      border-radius: 50%;
+      width: 80px; height: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      color: var(--white);
+      line-height: 1.1;
+      text-align: center;
+    }
+    .about-badge .badge-num { font-size: 1.5rem; font-weight: 600; }
+    .about-badge .badge-txt { font-size: 0.55rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.85; }
+
+    .about-text .section-label { color: var(--orange-warm); }
+    .about-text .section-label::before { background: var(--orange-warm); }
+    .about-text .section-heading { color: var(--cream); }
+
+    .about-bio {
+      margin-top: 20px;
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(250,248,243,0.75);
+      line-height: 1.8;
+    }
+    .about-bio strong { color: var(--cream); font-weight: 400; }
+
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .about-tag {
+      padding: 7px 16px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 400;
+      border: 1px solid rgba(250,248,243,0.2);
+      color: rgba(250,248,243,0.75);
+    }
+
+    .about-tag.highlight {
+      background: rgba(224, 120, 64, 0.2);
+      border-color: rgba(224, 120, 64, 0.5);
+      color: var(--orange-warm);
+    }
+
+    /* ===================== CONTACT ===================== */
+    #contact { background: var(--cream); }
+
+    .contact-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .contact-intro {
+      margin-top: 16px;
+      font-size: 1.05rem;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    @media (min-width: 500px) {
+      .contact-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (min-width: 680px) {
+      .contact-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .contact-card {
+      background: var(--white);
+      border: 1px solid var(--beige);
+      border-radius: var(--r-md);
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: transform 0.2s var(--ease-out), box-shadow 0.2s, border-color 0.2s;
+      text-decoration: none;
+    }
+    .contact-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(31, 61, 16, 0.1);
+      border-color: var(--green);
+    }
+
+    .contact-icon {
+      width: 44px; height: 44px;
+      border-radius: var(--r-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    .contact-card-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .contact-card-value {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--text);
+    }
+    .contact-card-arrow {
+      margin-top: auto;
+      font-size: 0.8rem;
+      color: var(--muted);
+      transition: color 0.2s, transform 0.2s;
+    }
+    .contact-card:hover .contact-card-arrow {
+      color: var(--green);
+      transform: translate(3px, -3px);
+    }
+
+    .contact-note {
+      margin-top: 32px;
+      font-size: 0.82rem;
+      color: var(--sand);
+      text-align: center;
+      font-style: italic;
+      font-family: var(--serif);
+    }
+
+    /* ===================== FOOTER ===================== */
+    footer {
+      background: var(--green);
+      color: rgba(250,248,243,0.4);
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+    footer span { color: var(--orange-warm); }
+
+    /* ===================== MODAL ===================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 25, 22, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 0;
+    }
+    .modal-overlay.open {
+      display: flex;
+      animation: fadeIn 0.25s ease;
+    }
+
+    @media (min-width: 640px) {
+      .modal-overlay {
+        align-items: center;
+        padding: 24px;
+      }
+    }
+
+    .modal {
+      background: var(--white);
+      border-radius: var(--r-xl) var(--r-xl) 0 0;
+      width: 100%;
+      max-width: 680px;
+      max-height: 90svh;
+      overflow-y: auto;
+      animation: slideUp 0.4s var(--ease-out);
+    }
+    @media (min-width: 640px) {
+      .modal { border-radius: var(--r-xl); }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to   { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-header-img {
+      width: 100%;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(250,248,243,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--text);
+      transition: background 0.2s;
+    }
+    .modal-close:hover { background: var(--cream); }
+
+    .modal-body { padding: 32px; }
+
+    .modal-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+
+    .modal-title {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .modal-date { font-size: 0.75rem; color: var(--sand); margin-bottom: 24px; }
+
+    .modal-section { margin-bottom: 24px; }
+    .modal-section-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+    .modal-section p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.75;
+    }
+    .modal-section strong { color: var(--text); font-weight: 400; }
+
+    .modal-outcome {
+      background: var(--beige);
+      border-radius: var(--r-md);
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .modal-outcome-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .modal-outcome p { font-size: 0.88rem; color: var(--text); }
+
+    /* ===================== ANIMATIONS ===================== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+      section { padding: 72px 20px; }
+      .about-badge { display: none; }
+    }
+
+    /* ===================== SCROLLBAR ===================== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--sand); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--green-light); }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav id="nav">
+    <div class="nav-logo">Amara<span>.</span></div>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#work" class="mobile-link">Work</a>
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero">
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
+    <div class="hero-blob hero-blob-3"></div>
+
+    <div class="hero-dots" aria-hidden="true">
+      <div class="hero-dot" style="width:120px;height:120px;top:15%;left:8%;animation-delay:0s"></div>
+      <div class="hero-dot" style="width:60px;height:60px;top:70%;left:15%;animation-delay:-2s"></div>
+      <div class="hero-dot" style="width:80px;height:80px;top:30%;right:12%;animation-delay:-4s"></div>
+      <div class="hero-dot" style="width:40px;height:40px;top:60%;right:25%;animation-delay:-1s"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Food Science &amp; Nutrition</div>
+      <h1 class="hero-h1">Exploring the <em>science</em><br>behind food</h1>
+      <p class="hero-sub">
+        Where microbiology meets the kitchen — developing safer, more nutritious,
+        and more sustainable food for communities that need it most.
+      </p>
+      <div class="hero-actions">
+        <a href="#work" class="btn btn-primary">View Work →</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+  </section>
+
+  <!-- ===== WORK ===== -->
+  <section id="work">
+    <div class="work-header reveal">
+      <span class="section-label">Portfolio</span>
+      <h2 class="section-heading">Experiments, recipes,<br>& <em>ideas</em></h2>
+      <p class="work-intro">
+        A running log of food science projects — from lab bench to kitchen table.
+        Each entry is a step in understanding how food works.
+      </p>
+
+      <div class="filter-bar" id="filterBar">
+        <button class="chip active" data-filter="all">All</button>
+        <button class="chip" data-filter="experiment">Experiment</button>
+        <button class="chip" data-filter="research">Research</button>
+        <button class="chip" data-filter="recipe">Recipe</button>
+        <button class="chip" data-filter="nutrition">Nutrition</button>
+      </div>
+    </div>
+
+    <div class="card-grid" id="cardGrid">
+      <!-- Cards injected by JS -->
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about">
+    <div class="about-inner">
+      <div class="about-image-wrap reveal">
+        <div class="about-avatar">
+          <div class="about-avatar-placeholder">🧪</div>
+          <div class="avatar-upload-hint">Replace with photo</div>
+        </div>
+        <div class="about-badge">
+          <span class="badge-num">3rd</span>
+          <span class="badge-txt">Year Student</span>
+        </div>
+      </div>
+
+      <div class="about-text reveal">
+        <span class="section-label">About me</span>
+        <h2 class="section-heading">Part scientist,<br>part <em>chef</em></h2>
+        <p class="about-bio">
+          Hi, I'm <strong>Amara</strong> — a food science & nutrition student with a deep fascination for
+          what happens between the farm and the fork. I work at the intersection of
+          <strong>microbiology, food chemistry, and product development</strong>, driven by
+          questions like: how do we make fermented foods safer, more nutritious, and more
+          accessible to East African households?
+          <br><br>
+          When I'm not in the lab, I'm testing recipes, reading food policy, or thinking about
+          how science can address food security at scale.
+        </p>
+
+        <div class="about-tags">
+          <span class="about-tag highlight">Food Microbiology</span>
+          <span class="about-tag highlight">Product Development</span>
+          <span class="about-tag">Sensory Analysis</span>
+          <span class="about-tag">Fermentation</span>
+          <span class="about-tag">Nutrition Policy</span>
+          <span class="about-tag">Food Safety</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="reveal">
+        <span class="section-label">Let's connect</span>
+        <h2 class="section-heading">Open to <em>collaboration</em></h2>
+        <p class="contact-intro">
+          Whether it's a research project, a creative food idea, or simply a conversation —
+          I'd love to hear from you.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <a href="mailto:amara@example.com" class="contact-card reveal">
+          <div class="contact-icon" style="background:#EEF4E8;">📧</div>
+          <div>
+            <div class="contact-card-label">Email</div>
+            <div class="contact-card-value">amara@example.com</div>
+          </div>
+          <div class="contact-card-arrow">↗</div>
+        </a>
+
+        <a href="https://wa.me/254700000000" target="_blank" rel="noopener" class="contact-card reveal">
+          <div class="contact-icon" style="background:#EDF8EE;">💬</div>
+          <div>
+            <div class="contact-card-label">WhatsApp</div>
+            <div class="contact-card-value">+254 700 000 000</div>
+          </div>
+          <div class="contact-card-arrow">↗</div>
+        </a>
+
+        <a href="#" class="contact-card reveal" id="cvDownload">
+          <div class="contact-icon" style="background:#FFF4ED;">📄</div>
+          <div>
+            <div class="contact-card-label">Curriculum Vitae</div>
+            <div class="contact-card-value">Download CV</div>
+          </div>
+          <div class="contact-card-arrow">↓</div>
+        </a>
+      </div>
+
+      <p class="contact-note reveal">Available for internships, research collaborations &amp; part-time projects.</p>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <p>© 2025 Amara Osei &nbsp;·&nbsp; Food Science &amp; Nutrition &nbsp;·&nbsp; Built with <span>♥</span> &amp; science</p>
+  </footer>
+
+  <!-- ===== MODAL ===== -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
+    <div class="modal" id="modal">
+      <div class="modal-header-img" id="modalImg">
+        <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    /* ===================== DATA ===================== */
+    const works = [
+      {
+        id: 1,
+        emoji: '🦠',
+        bgColor: '#EEF4E8',
+        tags: ['experiment', 'nutrition'],
+        title: 'Probiotic Survival in Fortified Yogurt',
+        desc: 'Measuring Lactobacillus viability across storage temperatures and pH levels.',
+        date: 'Mar 2025',
+        featured: true,
+        detail: {
+          problem: 'Fortified yogurts in the Kenyan market often lose probiotic viability before the use-by date, especially during transport without cold chain.',
+          hypothesis: 'Reducing pH to 3.8 and adding inulin as a prebiotic will significantly extend Lactobacillus acidophilus survival over a 21-day storage period.',
+          process: 'Produced six yogurt variants across two pH levels and three storage temperatures (4°C, 15°C, 25°C). CFU counts taken at days 0, 7, 14, and 21.',
+          result: 'Inulin supplementation increased viable count by <strong>2.3 log CFU/g</strong> at day 21. Cold-chain gaps above 15°C caused significant die-off regardless of prebiotic addition.',
+          outcome: '🏆 Recommended inulin fortification as a low-cost probiotic protectant. Presented findings at faculty symposium.'
+        }
+      },
+      {
+        id: 2,
+        emoji: '🌽',
+        bgColor: '#FDF8EE',
+        tags: ['research', 'nutrition'],
+        title: 'Aflatoxin Risk in Stored Kenyan Maize',
+        desc: 'A literature review on mycotoxin contamination and its link to child stunting in East Africa.',
+        date: 'Jan 2025',
+        featured: false,
+        detail: {
+          problem: 'Kenya has among the highest rates of aflatoxin-related food safety incidents globally, with maize — a staple — as the primary vector.',
+          hypothesis: 'Poor post-harvest drying and storage practices are the leading controllable risk factor for aflatoxin contamination at household level.',
+          process: 'Systematic review of 42 peer-reviewed papers (2015–2024) on mycotoxin incidence in East African cereal supply chains.',
+          result: 'Post-harvest moisture above <strong>14%</strong> was the single strongest predictor of contamination. PICS bag adoption in smallholder contexts reduced contamination by 60–80%.',
+          outcome: '📝 Published as a lab report. Recommended community training on moisture meters and hermetic storage as priority interventions.'
+        }
+      },
+      {
+        id: 3,
+        emoji: '🍞',
+        bgColor: '#FFF4ED',
+        tags: ['experiment', 'recipe'],
+        title: 'Sugar Reduction in Baked Goods',
+        desc: 'Can we cut 30% of sugar from banana bread without ruining texture or taste?',
+        date: 'Feb 2025',
+        featured: false,
+        detail: {
+          problem: 'Sugar plays multiple structural roles in baking — not just sweetness. Reformulation often produces dense, pale, or dry results.',
+          hypothesis: 'Replacing 30% sucrose with erythritol + 0.5% xanthan gum will maintain moisture retention and sensory acceptability scores above 7/10.',
+          process: 'Three test batches with varying replacement rates. Sensory panel of 12 participants scored texture, sweetness, colour, and overall acceptability.',
+          result: 'The 30% erythritol blend achieved an <strong>average 7.6/10</strong> overall score. Texture held well; slight cooling aftertaste noted but accepted by most panelists.',
+          outcome: '🍌 Recommended formula for a low-glycaemic baking guide. Useful for diabetic-friendly product development.'
+        }
+      },
+      {
+        id: 4,
+        emoji: '🥚',
+        bgColor: '#EEF4E8',
+        tags: ['recipe', 'experiment'],
+        title: 'Aquafaba as an Egg Replacer',
+        desc: 'Testing the functionality of chickpea brine in meringues and mayonnaise.',
+        date: 'Dec 2024',
+        featured: false,
+        detail: {
+          problem: 'Egg-free alternatives are in demand globally for vegan diets and egg allergy management, but few plant-based options replicate full egg functionality.',
+          hypothesis: 'Aquafaba (at 3 tbsp per egg) will produce stable foam and emulsification comparable to whole egg white in both meringue and mayonnaise applications.',
+          process: 'Side-by-side trials with conventional eggs vs aquafaba. Foam stability measured at 30, 60, and 120 minutes. Emulsion stability assessed by centrifuge separation.',
+          result: 'Meringue: aquafaba foam <strong>92% as stable</strong> as egg white after 2hrs. Mayonnaise: slight separation after 72hrs in fridge — improved with addition of 0.1% lecithin.',
+          outcome: '✅ Validated aquafaba as a functional, low-cost vegan egg replacer for home and commercial kitchens.'
+        }
+      },
+      {
+        id: 5,
+        emoji: '🫙',
+        bgColor: '#FDF8EE',
+        tags: ['recipe', 'nutrition'],
+        title: 'Fermented Uji — A Nutritional Upgrade',
+        desc: 'Traditional sorghum porridge, reimagined for improved protein bioavailability.',
+        date: 'Nov 2024',
+        featured: false,
+        detail: {
+          problem: 'Uji (East African thin porridge) is a widely consumed complementary food, but traditional fermentation is inconsistent and often fails to reduce antinutrients sufficiently.',
+          hypothesis: 'Controlled lactic acid fermentation at 35°C for 18–24 hours will reduce phytate content by 40%+, improving iron and zinc bioavailability in infants.',
+          process: 'Produced three batches: unfermented control, traditional overnight ferment, and controlled 35°C 20hr ferment. Phytate measured via colorimetric assay.',
+          result: 'Controlled ferment reduced phytate by <strong>54%</strong> versus 31% in the traditional method. Iron solubility improved by 2.8×.',
+          outcome: '🍼 Protocol documented for community health workers. Informs complementary feeding guidelines for under-5 nutrition programmes.'
+        }
+      },
+      {
+        id: 6,
+        emoji: '🔬',
+        bgColor: '#EEF4E8',
+        tags: ['research'],
+        title: 'Maillard Reaction: Why Bread Browns',
+        desc: 'An illustrated deep-dive into the chemistry of colour, flavour, and heat.',
+        date: 'Oct 2024',
+        featured: false,
+        detail: {
+          problem: 'The Maillard reaction is one of the most cited processes in food science, yet it is poorly understood even among practitioners, leading to inconsistent baking results.',
+          hypothesis: 'A visual explainer covering the mechanism, variables (temperature, pH, water activity), and practical applications will improve understanding among food tech students.',
+          process: 'Literature synthesis of primary research papers. Created annotated diagrams and produced a two-page infographic.',
+          result: 'Peer feedback rated the explainer <strong>4.7/5 for clarity</strong>. Shared across three university food science groups with 200+ engagements.',
+          outcome: '📊 Featured as a course reference resource. Exploring expansion into a digital zine format.'
+        }
+      }
+    ];
+
+    /* ===================== RENDER CARDS ===================== */
+    const grid = document.getElementById('cardGrid');
+
+    function tagHTML(tag) {
+      return `<span class="tag tag-${tag}">${tag.charAt(0).toUpperCase() + tag.slice(1)}</span>`;
+    }
+
+    function renderCards(filter = 'all') {
+      const filtered = filter === 'all' ? works : works.filter(w => w.tags.includes(filter));
+      grid.innerHTML = '';
+      filtered.forEach((w, i) => {
+        const isFeatured = i === 0 && filter === 'all';
+        const card = document.createElement('div');
+        card.className = `work-card ${isFeatured ? 'featured' : ''}`;
+        card.style.animationDelay = `${i * 0.07}s`;
+        card.innerHTML = `
+          <div class="card-img" style="background:${w.bgColor}">${w.emoji}</div>
+          <div class="card-body">
+            <div class="card-tags">${w.tags.map(tagHTML).join('')}</div>
+            <h3 class="card-title">${w.title}</h3>
+            <p class="card-desc">${w.desc}</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-date">${w.date}</span>
+            <div class="card-arrow">↗</div>
+          </div>
+        `;
+        card.addEventListener('click', () => openModal(w));
+        grid.appendChild(card);
+      });
+    }
+
+    renderCards();
+
+    /* ===================== FILTER ===================== */
+    document.getElementById('filterBar').addEventListener('click', e => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      renderCards(chip.dataset.filter);
+    });
+
+    /* ===================== MODAL ===================== */
+    const overlay = document.getElementById('modalOverlay');
+    const modalImg = document.getElementById('modalImg');
+    const modalBody = document.getElementById('modalBody');
+
+    function openModal(w) {
+      modalImg.style.background = w.bgColor;
+      modalImg.innerHTML = `
+        <span style="font-size:5rem">${w.emoji}</span>
+        <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      `;
+      document.getElementById('modalClose').addEventListener('click', closeModal);
+
+      modalBody.innerHTML = `
+        <div class="modal-tags">${w.tags.map(tagHTML).join('')}</div>
+        <h2 class="modal-title">${w.title}</h2>
+        <div class="modal-date">${w.date}</div>
+
+        <div class="modal-section">
+          <div class="modal-section-label">The Problem</div>
+          <p>${w.detail.problem}</p>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-label">Hypothesis</div>
+          <p>${w.detail.hypothesis}</p>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-label">Process</div>
+          <p>${w.detail.process}</p>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-label">Result</div>
+          <p>${w.detail.result}</p>
+        </div>
+        <div class="modal-outcome">
+          <div class="modal-outcome-icon">💡</div>
+          <p>${w.detail.outcome}</p>
+        </div>
+      `;
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) closeModal();
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    /* ===================== NAV SCROLL ===================== */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    /* ===================== MOBILE MENU ===================== */
+    const toggle = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        toggle.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    /* ===================== SCROLL REVEAL ===================== */
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    /* ===================== CV DOWNLOAD (placeholder) ===================== */
+    document.getElementById('cvDownload').addEventListener('click', e => {
+      e.preventDefault();
+      alert('📄 Upload your CV file and replace the href="#" with the file path.\n\nExample: href="./amara-osei-cv.pdf" download');
+    });
+  </script>
+</body>
+</html>
